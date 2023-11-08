@@ -5,6 +5,14 @@ let scorePc=0;
 let gameswon=0,gameslost=0;
 let currentDeck=getDeck();
 shuffle(currentDeck);
+let field=document.body.querySelector("main");
+let buttondraw=document.querySelector(".drawCard");
+let buttonhold=document.querySelector(".hold");
+let human=document.createElement("div");
+human.classList.add("playerfield");
+human.style.width="100vw";
+let pc=document.createElement("div");
+pc.classList.add("pcfield");
 
 function getDeck()
 {
@@ -18,7 +26,6 @@ function getDeck()
 			deck.push(card);
 		}
 	}
-
 	return deck;
 }
 function shuffle(deck)
@@ -65,49 +72,32 @@ function GameEnd(boolplayerwon){
 	if(gameslost<gameswon)alert("You beat me! You must have cheated! best of"+((gameswon*2)+1)+"? current score pc:"+gameslost+"You: "+gameswon);
 	if(gameslost===gameswon)alert("It's a tie!? Ready to lose? current score pc:"+gameslost+"You: "+gameswon);
 	else alert("You are no match for the mighty computer! Care to get further behind? current score pc:"+gameslost+" You: "+gameswon);
-	if(currentDeck.length<10)shuffle(currentDeck=getDeck());
-
-	StartNewGame();
-}
-
-function StartNewGame()
-{
-	let field=document.body.querySelector("main");
-	field.innerHTML=[];
 	scorePlayer=0;
 	scorePc=0;
-	let human=document.createElement("div");
-	human.style.width="100vw";
-	let pc=document.createElement("div");
+	human.innerHTML=[];
+	pc.innerHTML=[];
+	field.innerHTML=[];
+	if(currentDeck.length<10)shuffle(currentDeck=getDeck());
+}
 
-	let buttondraw=document.querySelector(".drawCard");
-	if(!buttondraw.EventListener)
-	{
-		buttondraw.addEventListener("click",()=>{
-			human.appendChild(DrawCard(true));
-			pc.appendChild(DrawCard(false));
-			if(scorePc>21)GameEnd(true);
-			if(scorePlayer>21)GameEnd(false);
-		})
-	}
-
-	let buttonhold=document.querySelector(".hold");
-	if(!buttonhold.EventListener){
-		buttonhold.addEventListener("click",()=>{
-			console.log(scorePc,scorePlayer);
-			if(scorePc<scorePlayer)
-			{
-				pc.appendChild(DrawCard(false));
-				if(scorePc>21)GameEnd(true);
-				if(scorePc>scorePlayer)GameEnd(false);
-				else if(scorePc<15)DrawCard(false);
-				else GameEnd(true);
-			}
-			else GameEnd(false);
-		})
-	}
-
+buttondraw.addEventListener("click",()=>{
+	human.appendChild(DrawCard(true));
+	pc.appendChild(DrawCard(false));
+	if(scorePc>21)GameEnd(true);
+	if(scorePlayer>21)GameEnd(false);
 	field.appendChild(pc);
 	field.appendChild(human);
-}
-StartNewGame();
+})
+buttonhold.addEventListener("click",()=>{
+	if(scorePc<scorePlayer)
+	{
+		pc.appendChild(DrawCard(false));
+		if(scorePc>21)GameEnd(true);
+		if(scorePc>scorePlayer)GameEnd(false);
+		else if(scorePc<15)pc.appendChild(DrawCard(false));
+		else GameEnd(true);
+	}
+	else GameEnd(false);
+	field.appendChild(pc);
+	field.appendChild(human);
+})
