@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <style>
+    *{
+      background-color: rgb(58, 57, 57);
+    }
     .game{
       padding: 10px;
       margin: 10px;
@@ -19,18 +22,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="moving-block-game.css">
-  <script src="./moving-block-game.js"></script> -->
   <title>rock paper scissors</title>
 </head>
 <body>
-
   <script>
     let options=["🗿","📃","✂️"];
     let wins=0;
     let losses=0;
     let ties=0;
-    // let history=[];
     let randomOptionIndex=Math.floor(Math.random()*options.length);
     console.log(options[randomOptionIndex]);
     let game=document.createElement("div");
@@ -39,12 +38,14 @@
     scores.classList.add("scores");
     
     function UpdateHistory(outcome,e){
+      let score=document.createElement("p");
       if(outcome=="Won")wins++;
       if(outcome=="Lost")losses++;
       if(outcome=="Tied")ties++;
+      if(outcome=="Won")score.style.color="green";
+      if(outcome=="Lost")score.style.color="red";
+      if(outcome=="Tied")score.style.color="white";
       let stats=outcome+"! your choise: "+e +" pc:"+options[randomOptionIndex]+" Total Score: Wins "+wins+" Losses "+losses+" Ties: "+ties;
-      // history.push(stats);
-      let score=document.createElement("p");
       score.textContent=stats;
       scores.prepend(score);
     }
@@ -68,10 +69,7 @@
     });
     game.appendChild(optionsField);
     game.appendChild(scores);
-    
-    
     document.body.appendChild(game);
   </script>
-  
 </body>
 </html>
