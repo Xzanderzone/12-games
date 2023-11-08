@@ -74,10 +74,11 @@ function GameEnd(boolplayerwon){
 		gameswon++;
 	}
 	else gameslost++;
+	//holy shit this is ugly but...it works so no more touching > delaying the end so it can draw the cards 
 	setTimeout(`
 	if(gameslost<gameswon)alert("You beat me! You must have cheated! best of"+((gameswon*2)+1)+"? current score pc:"+gameslost+"You: "+gameswon);
 	if(gameslost===gameswon)alert("I lost and We're tied!? Ready to lose? current score pc:"+gameslost+"You: "+gameswon);
-	else alert("You are no match for the mighty computer! Care to get further behind? current score pc:"+gameslost+" You: "+gameswon);
+	else alert("You may have won but you are no match for the mighty computer! Care to get further behind? current score pc:"+gameslost+" You: "+gameswon);
 	scorePlayer=0;
 	scorePc=0;
 	playerScore.innerHTML="Player: "+scorePlayer;
@@ -94,13 +95,13 @@ function GameEnd(boolplayerwon){
 buttondraw.addEventListener("click",()=>{
 	human.appendChild(DrawCard(true));
 	let pcskip=false;
-	if(scorePc>17)pcskip=true;
+	if(scorePc>16)pcskip=true;
 	else pc.appendChild(DrawCard(false));
 	field.appendChild(pc);
 	field.appendChild(human);
 	if(scorePc>21)GameEnd(true);
-	else if(pcskip && scorePlayer>scorePc)GameEnd(true);
 	else if(scorePlayer>21)GameEnd(false);
+	else if(pcskip && scorePlayer>scorePc)GameEnd(true);
 	else if(scorePlayer===21)GameEnd(true);
 	else if(scorePc===21)GameEnd(false);
 })
@@ -112,7 +113,7 @@ function Hold()
 		pc.appendChild(DrawCard(false));
 		field.appendChild(pc);
 		field.appendChild(human);
-		if(scorePc<15 ){
+		if(scorePc<15){
 			Hold();
 		}
 		else if(scorePc>21)GameEnd(true);
