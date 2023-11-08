@@ -1,5 +1,5 @@
-var suits = ["♠", "♦️", "♣️", "♥"];
-var values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+let suits = ["♠", "♦️", "♣️", "♥"];
+let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 let scorePlayer=0;
 let scorePc=0;
 let gameswon=0,gameslost=0;
@@ -13,7 +13,8 @@ human.classList.add("playerfield");
 human.style.width="100vw";
 let pc=document.createElement("div");
 pc.classList.add("pcfield");
-
+let playerScore=document.body.querySelector(".playerscore");
+let pcScore=document.body.querySelector(".pcscore");
 function getDeck()
 {
 	let deck = [];
@@ -61,6 +62,8 @@ function DrawCard(boolplayer){
 		if(drawncard.Value==="K")score+=13;
 		if(boolplayer)scorePlayer+=score;
 		else scorePc+=score;
+		playerScore.innerHTML="Player: "+scorePlayer;
+		pcScore.innerHTML="PC: "+scorePc;
 		return card;
 	}
 }
@@ -83,21 +86,31 @@ function GameEnd(boolplayerwon){
 buttondraw.addEventListener("click",()=>{
 	human.appendChild(DrawCard(true));
 	pc.appendChild(DrawCard(false));
-	if(scorePc>21)GameEnd(true);
-	if(scorePlayer>21)GameEnd(false);
 	field.appendChild(pc);
 	field.appendChild(human);
+	if(scorePc>21)GameEnd(true);
+	else if(scorePlayer>21)GameEnd(false);
+	else if(scorePlayer===21)GameEnd(true);
+	else if(scorePc===21)GameEnd(false);
 })
 buttonhold.addEventListener("click",()=>{
 	if(scorePc<scorePlayer)
 	{
 		pc.appendChild(DrawCard(false));
-		if(scorePc>21)GameEnd(true);
-		if(scorePc>scorePlayer)GameEnd(false);
-		else if(scorePc<15)pc.appendChild(DrawCard(false));
+		if(scorePc<15){
+			pc.appendChild(DrawCard(false));
+			field.appendChild(pc);
+			field.appendChild(human);
+		}
+		else if(scorePc>21)GameEnd(true);
+		else if(scorePc>scorePlayer)GameEnd(false);
 		else GameEnd(true);
+		field.appendChild(pc);
+		field.appendChild(human);
 	}
-	else GameEnd(false);
-	field.appendChild(pc);
-	field.appendChild(human);
+	else {
+		field.appendChild(pc);
+		field.appendChild(human);
+		GameEnd(false);
+	}
 })
