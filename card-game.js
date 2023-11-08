@@ -1,5 +1,10 @@
 var suits = ["♠", "♦️", "♣️", "♥"];
 var values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+let scorePlayer=0;
+let scorePc=0;
+let gameswon=0,gameslost=0;
+let currentDeck=getDeck();
+shuffle(currentDeck);
 
 function getDeck()
 {
@@ -30,7 +35,7 @@ function shuffle(deck)
 		deck[location2] = tmp;
 	}
 }
-function DrawCard(){
+function DrawCard(boolplayer){
 	if(currentDeck.length>1)
 	{
 		let card=document.createElement("div");
@@ -41,19 +46,68 @@ function DrawCard(){
 		else if(drawncard.Suit==="♥")card.style.color="red";
 		else if(drawncard.Suit==="♣")card.style.color="black";
 		else if(drawncard.Suit==="♠")card.style.color="black";
+		let score=0;
+		if(parseInt(drawncard.Value))score+=parseInt(drawncard.Value);
+		if(drawncard.Value==="A")score+=1;
+		if(drawncard.Value==="J")score+=11;
+		if(drawncard.Value==="Q")score+=12;
+		if(drawncard.Value==="K")score+=13;
+		if(boolplayer)scorePlayer+=score;
+		else scorePc+=score;
 		return card;
 	}
 }
-//load a new deck and shuffle it
-let currentDeck=getDeck();
-shuffle(currentDeck);
-//draw a card
-let game=document.body.querySelector("main");
-let button=document.querySelector(".drawCard");
-button.textContent="Hit me";
-button.addEventListener("click",()=>{
-	game.appendChild(DrawCard());
-})
+function GameEnd(boolplayerwon){
+	if(boolplayerwon){
+		gameswon++;
+	}
+	else gameslost++;
+	if(gameslost<gameswon)alert("You beat me! You must have cheated! best of"+((gameswon*2)+1)+"? current score pc:"+gameslost+"You: "+gameswon);
+	if(gameslost===gameswon)alert("It's a tie!? Ready to lose? current score pc:"+gameslost+"You: "+gameswon);
+	else alert("You are no match for the mighty computer! Care to get further behind? current score pc:"+gameslost+" You: "+gameswon);
+	if(currentDeck.length<10)shuffle(currentDeck=getDeck());
 
-game.appendChild(DrawCard());
+	StartNewGame();
+}
 
+function StartNewGame()
+{
+	let field=document.body.querySelector("main");
+	field.innerHTML=[];
+	scorePlayer=0;
+	scorePc=0;
+	let human=document.createElement("div");
+	human.style.width="100vw";
+	let pc=document.createElement("div");
+
+	let buttondraw=document.querySelector(".drawCard");
+	if(!buttondraw.EventListener)
+	{
+		buttondraw.addEventListener("click",()=>{
+			human.appendChild(DrawCard(true));
+			pc.appendChild(DrawCard(false));
+			if(scorePc>21)GameEnd(true);
+			if(scorePlayer>21)GameEnd(false);
+		})
+	}
+
+	let buttonhold=document.querySelector(".hold");
+	if(!buttonhold.EventListener){
+		buttonhold.addEventListener("click",()=>{
+			console.log(scorePc,scorePlayer);
+			if(scorePc<scorePlayer)
+			{
+				pc.appendChild(DrawCard(false));
+				if(scorePc>21)GameEnd(true);
+				if(scorePc>scorePlayer)GameEnd(false);
+				else if(scorePc<15)DrawCard(false);
+				else GameEnd(true);
+			}
+			else GameEnd(false);
+		})
+	}
+
+	field.appendChild(pc);
+	field.appendChild(human);
+}
+StartNewGame();
