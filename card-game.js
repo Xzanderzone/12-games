@@ -74,21 +74,22 @@ function GameEnd(boolplayerwon){
 		gameswon++;
 	}
 	else gameslost++;
-	//holy shit this is ugly but...it works so no more touching > delaying the end so it can draw the cards 
-	setTimeout(`
-	if(gameslost<gameswon)alert("You beat me! You must have cheated! best of"+((gameswon*2)+1)+"? current score pc:"+gameslost+"You: "+gameswon);
-	if(gameslost===gameswon)alert("I lost and We're tied!? Ready to lose? current score pc:"+gameslost+"You: "+gameswon);
-	else alert("You may have won but you are no match for the mighty computer! Care to get further behind? current score pc:"+gameslost+" You: "+gameswon);
-	scorePlayer=0;
-	scorePc=0;
 	playerScore.innerHTML="Player: "+scorePlayer;
 	pcScore.innerHTML="PC: "+scorePc;
 	playerOverview.innerHTML="Player: "+gameswon;
 	pcOverview.innerHTML="PC: "+gameslost;
+	if(currentDeck.length<10)shuffle(currentDeck=getDeck());
+	//holy shit this is ugly but...it works so no more touching > delaying the end so it can draw the cards 
+	setTimeout(`
+	if(gameslost<gameswon)alert("You beat me! You must have cheated! best of "+((gameswon*2)+1)+" ? ")
+	else if(gameslost===gameswon && boolplayerwon)alert("You won and We're tied!? Ready to lose? ")
+	else if(gameslost===gameswon && !boolplayerwon)alert("You lost and We're tied!? Ready to lose? ")
+	else alert("You may have won but you are no match for the mighty computer! Care to get further behind? ")
+	scorePlayer=0;
+	scorePc=0;
 	human.innerHTML=[];
 	pc.innerHTML=[];
 	field.innerHTML=[];
-	if(currentDeck.length<10)shuffle(currentDeck=getDeck());
 	`,100)
 }
 
