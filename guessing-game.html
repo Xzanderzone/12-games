@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    input{
+      margin: 10px;
+    }
+  </style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="guessing-game.css"> -->
+  <!-- <script src="./guessing-game.js"></script> -->
+  <title>guessing game</title>
+</head>
+<body>
+  
+  <script>
+    let maxNumber=25;
+    let points=0;
+    let guesses=0;
+    let randomNumber=Math.floor(Math.random()*maxNumber);
+    let guessedNumber=1;
+    let inputField=document.createElement("input");
+    let title=document.createTextNode("Pick a number 0 to "+maxNumber);
+    let outputField=document.createTextNode("");
+    inputField.type="number";
+    inputField.addEventListener("keyup",(e)=>{
+      guessedNumber=parseInt(inputField.value);
+      console.log(guessedNumber);
+      if(e.key=="Enter")
+      {
+        if(guessedNumber==randomNumber)
+        {
+          points++;
+          outputField.textContent="You guessed it! "+points+" points to hufflepuff, with "+guesses+"guesses";
+        }
+        else if(guessedNumber===(randomNumber+1) || (guessedNumber+1)===randomNumber)outputField.textContent="So Close";
+        else outputField.textContent="You Lose, the random number was "+randomNumber;
+        guesses++;
+        randomNumber=Math.floor(Math.random()*maxNumber);
+      }
+    })
+    document.body.appendChild(title);
+    document.body.appendChild(inputField);
+    document.body.appendChild(outputField);
+
+  </script>
+</body>
+</html>
