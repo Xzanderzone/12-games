@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+  <style>
+    *{
+      background-color: gray;
+    }
+    button{
+      background-color: rgb(32, 84, 255);
+      border-radius: 15px;
+      padding: 10px;
+      width: 100px;
+    }
+  .card
+  {
+    width: 70px;
+    height: 100px;
+    padding: 10px;
+    border: solid 1px #808080;
+    background-color: white;
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 22px;
+    text-align: center;
+    margin: 3px;
+    border:solid 3px;
+  }
+  
+  </style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="card-game.css">
-  <script src="./card-game.js"></script>
-  <title>mcard game</title>
+  <title>card game</title>
 </head>
 <body>
-  
+  <header>
+    <h1>Welcome to the table! <br>You're late so we drew the first card already. <br> Would you like another?</h1>
+    <button class="drawCard"></button>
+  </header>
+  <main>
+
+    <script src="./card-game.js"></script>
+  </main>
 </body>
 </html>
