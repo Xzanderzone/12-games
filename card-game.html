@@ -25,7 +25,10 @@
     margin: 10px;
     border:solid 3px;
   }
-  .scoreboard{
+  .justgiveitaname{
+    display: flex;
+  }
+  .scoreboard,.matchoverview{
     background-color: rgb(0, 134, 211);
     width: 250px;
     text-align: center;
@@ -44,10 +47,17 @@
     <h1>Welcome to the table! <br> Would you like to lose?</h1>
     <button class="drawCard">Hit me</button>
     <button class="hold">Hold</button>
-    <div class="scoreboard">
-      <h2>Scoreboard</h2>
-      <h3 class="pcscore">PC:</h3>
-      <h3 class="playerscore">player:</h3>
+    <div class="justgiveitaname">
+      <div class="scoreboard">
+        <h2>Scoreboard</h2>
+        <h3 class="pcscore">PC:</h3>
+        <h3 class="playerscore">player:</h3>
+      </div>
+      <div class="matchoverview">
+        <h2>Match overview</h2>
+        <h3 class="pcoverview">PC:</h3>
+        <h3 class="playeroverview">player:</h3>
+      </div>
     </div>
   </header>
   <main>

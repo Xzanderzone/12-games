@@ -15,6 +15,8 @@ let pc=document.createElement("div");
 pc.classList.add("pcfield");
 let playerScore=document.body.querySelector(".playerscore");
 let pcScore=document.body.querySelector(".pcscore");
+let playerOverview=document.body.querySelector(".playeroverview");
+let pcOverview=document.body.querySelector(".pcoverview");
 function getDeck()
 {
 	let deck = [];
@@ -72,45 +74,58 @@ function GameEnd(boolplayerwon){
 		gameswon++;
 	}
 	else gameslost++;
+	setTimeout(`
 	if(gameslost<gameswon)alert("You beat me! You must have cheated! best of"+((gameswon*2)+1)+"? current score pc:"+gameslost+"You: "+gameswon);
-	if(gameslost===gameswon)alert("It's a tie!? Ready to lose? current score pc:"+gameslost+"You: "+gameswon);
+	if(gameslost===gameswon)alert("I lost and We're tied!? Ready to lose? current score pc:"+gameslost+"You: "+gameswon);
 	else alert("You are no match for the mighty computer! Care to get further behind? current score pc:"+gameslost+" You: "+gameswon);
 	scorePlayer=0;
 	scorePc=0;
+	playerScore.innerHTML="Player: "+scorePlayer;
+	pcScore.innerHTML="PC: "+scorePc;
+	playerOverview.innerHTML="Player: "+gameswon;
+	pcOverview.innerHTML="PC: "+gameslost;
 	human.innerHTML=[];
 	pc.innerHTML=[];
 	field.innerHTML=[];
 	if(currentDeck.length<10)shuffle(currentDeck=getDeck());
+	`,100)
 }
 
 buttondraw.addEventListener("click",()=>{
 	human.appendChild(DrawCard(true));
-	pc.appendChild(DrawCard(false));
+	let pcskip=false;
+	if(scorePc>17)pcskip=true;
+	else pc.appendChild(DrawCard(false));
 	field.appendChild(pc);
 	field.appendChild(human);
 	if(scorePc>21)GameEnd(true);
+	else if(pcskip && scorePlayer>scorePc)GameEnd(true);
 	else if(scorePlayer>21)GameEnd(false);
 	else if(scorePlayer===21)GameEnd(true);
 	else if(scorePc===21)GameEnd(false);
 })
-buttonhold.addEventListener("click",()=>{
-	if(scorePc<scorePlayer)
+buttonhold.addEventListener("click",Hold);
+function Hold()
+{
+	if(scorePc<=scorePlayer)
 	{
 		pc.appendChild(DrawCard(false));
-		if(scorePc<15){
-			pc.appendChild(DrawCard(false));
-			field.appendChild(pc);
-			field.appendChild(human);
+		field.appendChild(pc);
+		field.appendChild(human);
+		if(scorePc<15 ){
+			Hold();
 		}
 		else if(scorePc>21)GameEnd(true);
 		else if(scorePc>scorePlayer)GameEnd(false);
-		else GameEnd(true);
-		field.appendChild(pc);
-		field.appendChild(human);
+		else {
+			field.appendChild(pc);
+			field.appendChild(human);
+			GameEnd(true);
+		}
 	}
 	else {
 		field.appendChild(pc);
 		field.appendChild(human);
 		GameEnd(false);
 	}
-})
+}
