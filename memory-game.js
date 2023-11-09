@@ -1,12 +1,12 @@
 import {getDeck,shuffle,SetDifficulty} from "./collection-memory.js"
 
-let deck=getDeck().slice();
-shuffle(deck);
+let deck=[];
 let card1=false,card2=false;
 let main=document.body.querySelector("main");
 let difficultyswitch=document.body.querySelector(".difficultyswitch");
 difficultyswitch.addEventListener("keyup",function(){
   let test=parseInt(difficultyswitch.value);
+  console.log(test);
   SetDifficulty(test);
   Start();
 });
@@ -15,6 +15,8 @@ Start();
 
 function Start(){
   main.innerHTML=[];
+  deck=getDeck().slice();
+  shuffle(deck);
   for(let i=0;i<deck.length;i++){
     let card=document.createElement("button");
     let cardtitle=document.createElement("p");
@@ -22,13 +24,13 @@ function Start(){
     cardtitle.textContent=deck[i].Value+deck[i].Suit;
     card.addEventListener("click",function(e){
       if(card1==false){
-        this.classList.toggle("front");
-        this.classList.toggle("back");
+        this.classList.add("front");
+        this.classList.remove("back");
         card1=this;
       }
       else if(card2==false){
-        this.classList.toggle("front");
-        this.classList.toggle("back");
+        this.classList.add("front");
+        this.classList.remove("back");
         card2=this;
         if(card1.children[0].textContent==card2.children[0].textContent){
           card1=false;
