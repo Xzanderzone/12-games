@@ -2,7 +2,7 @@ let suits = ["♠", "♦️", "♣️", "♥"];
 let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 let scorePlayer=0;
 let scorePc=0;
-let gameswon=0,gameslost=0;
+let gameswon=0,gameslost=0,gamesTied=0;
 let currentDeck=getDeck();
 shuffle(currentDeck);
 let field=document.body.querySelector("main");
@@ -17,6 +17,10 @@ let playerScore=document.body.querySelector(".playerscore");
 let pcScore=document.body.querySelector(".pcscore");
 let playerOverview=document.body.querySelector(".playeroverview");
 let pcOverview=document.body.querySelector(".pcoverview");
+let tieOverview=document.body.querySelector(".tieoverview");
+let gamescore=document.body.querySelector(".gamescore");
+let message=document.querySelector(".matchtext");
+
 function getDeck()
 {
 	let deck = [];
@@ -31,6 +35,7 @@ function getDeck()
 	}
 	return deck;
 }
+
 function shuffle(deck)
 {
 	// for 1000 turns
@@ -52,10 +57,8 @@ function DrawCard(boolplayer){
 		card.classList.add("card");
 		let drawncard=currentDeck.pop();
 		card.textContent=drawncard.Value+drawncard.Suit;
-		if(drawncard.Suit==="♦")card.style.color="red";
-		else if(drawncard.Suit==="♥")card.style.color="red";
-		else if(drawncard.Suit==="♣")card.style.color="black";
-		else if(drawncard.Suit==="♠")card.style.color="black";
+		if(drawncard.Suit==="♥" || drawncard.Suit==="♦")card.style.color="red";
+		else if(drawncard.Suit==="♠" || drawncard.Suit==="♣")card.style.color="black";
 		let score=0;
 		if(parseInt(drawncard.Value))score+=parseInt(drawncard.Value);
 		if(drawncard.Value==="A")score+=1;
@@ -69,28 +72,56 @@ function DrawCard(boolplayer){
 		return card;
 	}
 }
-function GameEnd(boolplayerwon){
-	if(boolplayerwon){
+
+function GameEnd(tieWinLoss012){
+	let text="Round winner: ";
+	if(tieWinLoss012==1){
 		gameswon++;
+		gamescore.innerHTML=text+"You!";
 	}
-	else gameslost++;
+	else if(tieWinLoss012==2){
+		gameslost++;
+		gamescore.innerHTML=text+"PC";
+	}
+	else {
+		gamesTied++;
+		gamescore.innerHTML=text+"Tied";
+	}
 	playerScore.innerHTML="Player: "+scorePlayer;
 	pcScore.innerHTML="PC: "+scorePc;
 	playerOverview.innerHTML="Player: "+gameswon;
 	pcOverview.innerHTML="PC: "+gameslost;
+	tieOverview.innerHTML="Ties: "+gamesTied;
 	if(currentDeck.length<10)shuffle(currentDeck=getDeck());
-	//holy shit this is ugly but...it works so no more touching > delaying the end so it can draw the cards 
+	//delaying the end so it can draw the cards 
 	setTimeout(`
-	if(gameslost<gameswon)alert("You beat me! You must have cheated! best of "+((gameswon*2)+1)+" ? ")
-	else if(gameslost===gameswon && boolplayerwon)alert("You won and We're tied!? Ready to lose? ")
-	else if(gameslost===gameswon && !boolplayerwon)alert("You lost and We're tied!? Ready to lose? ")
-	else alert("You may have won but you are no match for the mighty computer! Care to get further behind? ")
 	scorePlayer=0;
 	scorePc=0;
 	human.innerHTML=[];
 	pc.innerHTML=[];
 	field.innerHTML=[];
-	`,100)
+	`,500)
+	if(tieWinLoss012==1){
+		if(gameslost<gameswon)message.textContent=("You beat me again! You must be cheating! best of "+((gameswon*2)+1)+" ? ")
+		else if(gameslost===gameswon)message.textContent=("You won and We're tied!? Ready to lose? ")
+		else message.textContent=("You may have won but you are no match for the mighty computer! Care to get further behind? ")
+		message.style.color="green";
+		gamescore.style.color="green";
+	}
+	else if(tieWinLoss012==2){
+		if(gameslost<gameswon)message.textContent=("You lost and you're still winning?! Fight me again i dare you!")
+		else if(gameslost===gameswon)message.textContent=("You Lost and We're tied now! Ready to lose? ")
+		else message.textContent=("You lose again! Surrender now before it becomes akward")
+		message.style.color="red";
+		gamescore.style.color="red";
+	}
+	else if(tieWinLoss012==0){
+		if(gameslost<gameswon)message.textContent=("a tie while im losing!? Fight me again i dare you!")
+		else if(gameslost===gameswon)message.textContent=("Guess we really are tied now! Ready to lose? ")
+		else message.textContent=("a tie but not to threat im still ahead! Surrender now before it becomes akward")
+		message.style.color="black";
+		gamescore.style.color="black";
+	};
 }
 
 buttondraw.addEventListener("click",()=>{
@@ -100,13 +131,15 @@ buttondraw.addEventListener("click",()=>{
 	else pc.appendChild(DrawCard(false));
 	field.appendChild(pc);
 	field.appendChild(human);
-	if(scorePc>21)GameEnd(true);
-	else if(scorePlayer>21)GameEnd(false);
-	else if(pcskip && scorePlayer>scorePc)GameEnd(true);
-	else if(scorePlayer===21)GameEnd(true);
-	else if(scorePc===21)GameEnd(false);
+	if(scorePc>21)GameEnd(1);
+	else if(scorePlayer>21)GameEnd(2);
+	else if(pcskip && scorePlayer>scorePc)GameEnd(1);
+	else if(scorePlayer===21)GameEnd(1);
+	else if(scorePc===21)GameEnd(2);
 })
+
 buttonhold.addEventListener("click",Hold);
+
 function Hold()
 {
 	if(scorePc<=scorePlayer)
@@ -117,17 +150,17 @@ function Hold()
 		if(scorePc<15){
 			Hold();
 		}
-		else if(scorePc>21)GameEnd(true);
-		else if(scorePc>scorePlayer)GameEnd(false);
+		else if(scorePc>21)GameEnd(1);
+		else if(scorePc>scorePlayer)GameEnd(2);
 		else {
 			field.appendChild(pc);
 			field.appendChild(human);
-			GameEnd(true);
+			GameEnd(1);
 		}
 	}
 	else {
 		field.appendChild(pc);
 		field.appendChild(human);
-		GameEnd(false);
+		GameEnd(2);
 	}
 }

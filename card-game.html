@@ -4,6 +4,7 @@
     *{
       background-color: gray;
       padding-left: 20px;
+      font-family: Arial, Helvetica, sans-serif;
     }
     button{
       background-color: rgb(0, 134, 211);
@@ -27,6 +28,7 @@
   }
   .justgiveitaname{
     display: flex;
+    text-align: center;
   }
   .scoreboard,.matchoverview{
     background-color: rgb(0, 134, 211);
@@ -35,6 +37,9 @@
     border-radius: 10px;
     padding: 10px;
     margin-top: 20px;
+  }
+  .matchtext{
+    font-size: large;
   }
   </style>
 <head>
@@ -50,15 +55,18 @@
     <div class="justgiveitaname">
       <div class="scoreboard">
         <h2>Scoreboard</h2>
-        <h3 class="pcscore">PC:</h3>
-        <h3 class="playerscore">player:</h3>
+        <h3 class="pcscore">PC: 0</h3>
+        <h3 class="playerscore">player: 0</h3>
+        <h3 class="gamescore">Round winner: -</h3>
       </div>
       <div class="matchoverview">
         <h2>Match overview</h2>
         <h3 class="pcoverview">PC: 0</h3>
         <h3 class="playeroverview">player: 0</h3>
+        <h3 class="tieoverview">Ties: 0</h3>
       </div>
     </div>
+    <h4 class="matchtext">I am the all mighty PC!</h4>
   </header>
   <main>
 
