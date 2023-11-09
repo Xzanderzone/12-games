@@ -61,12 +61,14 @@ function DrawCard(boolplayer){
 		else if(drawncard.Suit==="♠" || drawncard.Suit==="♣")card.style.color="black";
 		let score=0;
 		if(parseInt(drawncard.Value))score+=parseInt(drawncard.Value);
-		if(drawncard.Value==="A")score+=1;
-		if(drawncard.Value==="J")score+=11;
-		if(drawncard.Value==="Q")score+=12;
-		if(drawncard.Value==="K")score+=13;
+		if(drawncard.Value==="A")score+=11;
+		if(drawncard.Value==="J")score+=10;
+		if(drawncard.Value==="Q")score+=10;
+		if(drawncard.Value==="K")score+=10;
 		if(boolplayer)scorePlayer+=score;
 		else scorePc+=score;
+		if(scorePlayer>21 && score===11)scorePlayer-10;
+		if(scorePc>21 && score===11)scorePc-10;
 		playerScore.innerHTML="Player: "+scorePlayer;
 		pcScore.innerHTML="PC: "+scorePc;
 		return card;
@@ -118,7 +120,7 @@ function GameEnd(tieWinLoss012){
 	else if(tieWinLoss012==0){
 		if(gameslost<gameswon)message.textContent=("a tie while im losing!? Fight me again i dare you!")
 		else if(gameslost===gameswon)message.textContent=("Guess we really are tied now! Ready to lose? ")
-		else message.textContent=("a tie but not to threat im still ahead! Surrender now before it becomes akward")
+		else message.textContent=("a tie but not to threat im still ahead!")
 		message.style.color="black";
 		gamescore.style.color="black";
 	};
@@ -131,9 +133,11 @@ buttondraw.addEventListener("click",()=>{
 	else pc.appendChild(DrawCard(false));
 	field.appendChild(pc);
 	field.appendChild(human);
-	if(scorePc>21)GameEnd(1);
+	if(scorePc>21 && scorePlayer>21)GameEnd(0);
+	else if(scorePc>21)GameEnd(1);
 	else if(scorePlayer>21)GameEnd(2);
 	else if(pcskip && scorePlayer>scorePc)GameEnd(1);
+	else if(scorePlayer===scorePc)GameEnd(0);
 	else if(scorePlayer===21)GameEnd(1);
 	else if(scorePc===21)GameEnd(2);
 })
@@ -142,12 +146,12 @@ buttonhold.addEventListener("click",Hold);
 
 function Hold()
 {
-	if(scorePc<=scorePlayer)
+	if(scorePc<scorePlayer && scorePc<16)
 	{
 		pc.appendChild(DrawCard(false));
 		field.appendChild(pc);
 		field.appendChild(human);
-		if(scorePc<15){
+		if(scorePc<16){
 			Hold();
 		}
 		else if(scorePc>21)GameEnd(1);
@@ -157,6 +161,11 @@ function Hold()
 			field.appendChild(human);
 			GameEnd(1);
 		}
+	}
+	else if(scorePc===scorePlayer){
+		field.appendChild(pc);
+		field.appendChild(human);
+		GameEnd(0);
 	}
 	else {
 		field.appendChild(pc);
