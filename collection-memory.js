@@ -1,11 +1,18 @@
-let suits = ["♦️","♥"];
+let suits = ["♠", "♦️", "♣️", "♥"];
 let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-export function getDeck()
+let difficultyLevel=1; 
+export function SetDifficulty(difficulty)
 {
+	if(difficulty>=1)difficultyLevel=difficulty;
+}
+	export function getDeck()
+	{
 	let deck = [];
+	let insane=0;
+	// if(difficultyLevel>4)insane+=difficultyLevel-4;
 	for (let double=0;double<2;double++)
 	{
-		for(let i = 0; i < suits.length; i++)
+		for(let i = 0; i < suits.length && i<difficultyLevel; i++)
 		{
 			for(let x = 0; x < values.length; x++)
 			{
