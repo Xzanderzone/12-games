@@ -21,6 +21,7 @@ function Start(){
     let card=document.createElement("button");
     let cardtitle=document.createElement("p");
     card.classList.add("back");
+    if(deck[i].Suit==="♦️"||deck[i].Suit=== "♥")card.style.color="red";
     cardtitle.textContent=deck[i].Value+deck[i].Suit;
     card.addEventListener("click",function(e){
       if(card1==false){
@@ -33,7 +34,9 @@ function Start(){
         this.classList.remove("back");
         card2=this;
         if(card1.children[0].textContent==card2.children[0].textContent){
+          card1.disabled=true;
           card1=false;
+          card2.disabled=true;
           card2=false;
         }
         else setTimeout(hideCards,1000);
