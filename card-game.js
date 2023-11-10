@@ -137,9 +137,6 @@ buttondraw.addEventListener("click",()=>{
 	else if(scorePc>21)GameEnd(1);
 	else if(scorePlayer>21)GameEnd(2);
 	else if(pcskip && scorePlayer>scorePc)GameEnd(1);
-	else if(scorePlayer===scorePc)GameEnd(0);
-	else if(scorePlayer===21)GameEnd(1);
-	else if(scorePc===21)GameEnd(2);
 })
 
 buttonhold.addEventListener("click",Hold);
