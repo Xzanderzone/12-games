@@ -3,12 +3,13 @@ import {getDeck,shuffle,SetDifficulty} from "./collection-memory.js"
 let deck=[];
 let card1=false,card2=false;
 let main=document.body.querySelector("main");
-let difficultyswitch=document.body.querySelector(".difficultyswitch");
-difficultyswitch.addEventListener("keyup",function(){
-  let test=parseInt(difficultyswitch.value);
-  console.log(test);
-  SetDifficulty(test);
-  Start();
+let difficultyswitch=document.body.querySelectorAll(".difficultyswitch");
+difficultyswitch.forEach(element => {
+  element.addEventListener("click",(e)=>{
+    e.preventDefault();  
+    SetDifficulty(parseInt(e.target.textContent));
+    Start();
+    });
 });
 
 Start();

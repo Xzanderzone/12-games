@@ -31,7 +31,6 @@ function DrawTile(type){
     floortile.classList.add(type);
     floortile.style.width=tilesizeright+"px";
     floortile.style.height=tilesizedown+"px";
-    console.log(tilesizedown,tilesizeright);
     floortile.style.backgroundColor="gray";//change to a floor file?
     return floortile;
   }
@@ -39,16 +38,16 @@ function DrawTile(type){
 
 function move(e){
   playerrequest={right:0,down:0};//start 0 request
-  if(e.key==="ArrowLeft"){
+  if(e.key==="ArrowLeft" && playerright>0){
     playerrequest.right=-1;
   }
-  else if(e.key==="ArrowRight"){
+  else if(e.key==="ArrowRight"&& playerright<boardright){
     playerrequest.right=1;
   }
-  else if(e.key==="ArrowDown"){
+  else if(e.key==="ArrowDown"&& playerdown<boarddown){
     playerrequest.down=1;
   }
-  else if(e.key==="ArrowUp"){
+  else if(e.key==="ArrowUp"&& playerdown>0){
     playerrequest.down=-1;
   }
   playerright=playerright+playerrequest.right;
@@ -57,7 +56,7 @@ function move(e){
   playerlocation.down=(playerdown)*(boardsizedown/boarddown);
   console.log(playerright,playerdown);
   console.log(playerlocation.right,playerlocation.down);
-  player.style.bottom=playerlocation.down;
-  player.style.right=playerlocation.right;
+  player.style.top=playerlocation.down+"px";
+  player.style.left=playerlocation.right+"px";
   main.appendChild(player);
 }
