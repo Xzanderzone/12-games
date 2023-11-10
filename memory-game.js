@@ -33,7 +33,7 @@ function Start(){
         this.classList.add("front");
         this.classList.remove("back");
         card2=this;
-        if(card1.children[0].textContent==card2.children[0].textContent){
+        if(card1.children[0].textContent==card2.children[0].textContent && card1!=card2){
           card1.disabled=true;
           card1=false;
           card2.disabled=true;
