@@ -45,6 +45,14 @@
     .back p{
       opacity: 50%;
     }
+    form {
+      font-weight: 900;
+      text-shadow: 1px 1px 2px rgba(255, 0, 0, 0.342), 0 0 0.5em rgba(0, 0, 255, 0.329), 0 0 0.1em rgba(0, 0, 255, 0.384);
+    }
+    form b{
+      font-weight: 900;
+      text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+    }
   </style>
 <head>
   <meta charset="UTF-8">
@@ -57,6 +65,9 @@
     <h1>Welcome back weary traveller, what do you mean you dont remember being here before? Maybe memory games aren't your thing...</h1>
     <form>
       If this is to easy to your liking, feel free to up the difficulty level.
+      Every level adds an <b>extra suit </b> (13 pairs, up to 9suits!)
+      Levels 10 to 18 do the same but <b>THREE OF A KIND!</b>
+      <br>
       <button class="difficultyswitch"> 1</button>
       <button class="difficultyswitch"> 2</button>
       <button class="difficultyswitch"> 3</button>
@@ -67,6 +78,7 @@
       <button class="difficultyswitch"> 8</button>
       <button class="difficultyswitch"> 9</button>
       <!-- 3 of a kind -->
+      <br>
       <button class="difficultyswitch"> 10</button>
       <button class="difficultyswitch"> 11</button>
       <button class="difficultyswitch"> 12</button>
