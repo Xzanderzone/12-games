@@ -11,29 +11,39 @@
       width: 70px;
       height: 100px;
       border-radius: 20px;
+      font-weight: 900;
       font-size: xx-large;
       margin: 10px;
     }
+    button p{
+      margin: 0;
+      padding: 0;
+    }
     .difficultyswitch{
-      color:red;
+      color:rgb(255, 17, 0);
       width: 30px;
-      height: 30px;
-      border-radius: 20px;
-      font-size: large;
-      margin: 10px;
+      height: 40px;
+      border-radius: 10px;
+      margin: 7px;
+      font-size:small;
+      padding-left: 4px;
+      background: rgb(35,195,228);
+      background: linear-gradient(45deg, rgba(35,195,228,0.5) 25%, rgba(255,184,32,0.5) 75%);
+
     }
     .back{
       background: rgb(35,195,228);
       background: linear-gradient(45deg, rgba(35,195,228,1) 25%, rgba(255,184,32,1) 75%);
-}
+    }
     .front{
       background-color: antiquewhite;
+      
     }
     .front p{
       opacity: 100%;
     }
     .back p{
-      opacity: 0%;
+      opacity: 50%;
     }
   </style>
 <head>
@@ -46,10 +56,7 @@
   <header>
     <h1>Welcome back weary traveller, what do you mean you dont remember being here before? Maybe memory games aren't your thing...</h1>
     <form>
-      <!-- maybe buttons per difficulty level instead? -->
       If this is to easy to your liking, feel free to up the difficulty level.
-      <!-- <input type="number" class="difficultyswitch" name="difficultyLevel" min="0" max="10">
-      </form> -->
       <button class="difficultyswitch"> 1</button>
       <button class="difficultyswitch"> 2</button>
       <button class="difficultyswitch"> 3</button>
@@ -59,6 +66,17 @@
       <button class="difficultyswitch"> 7</button>
       <button class="difficultyswitch"> 8</button>
       <button class="difficultyswitch"> 9</button>
+      <!-- 3 of a kind -->
+      <button class="difficultyswitch"> 10</button>
+      <button class="difficultyswitch"> 11</button>
+      <button class="difficultyswitch"> 12</button>
+      <button class="difficultyswitch"> 13</button>
+      <button class="difficultyswitch"> 14</button>
+      <button class="difficultyswitch"> 15</button>
+      <button class="difficultyswitch"> 16</button>
+      <button class="difficultyswitch"> 17</button>
+      <button class="difficultyswitch"> 18</button>
+      <button class="difficultyswitch"> 0</button>
   </header>
   <main>
 
