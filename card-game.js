@@ -127,6 +127,7 @@ function GameEnd(tieWinLoss012){
 }
 
 buttondraw.addEventListener("click",()=>{
+	message.textContent="";
 	human.appendChild(DrawCard(true));
 	let pcskip=false;
 	if(scorePc>16)pcskip=true;
