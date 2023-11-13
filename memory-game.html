@@ -32,12 +32,12 @@
     }
     .cheat{
       color:rgb(255, 17, 0);
-      width: 100px;
-      height: 40px;
       border-radius: 10px;
       margin: 7px;
+      padding: 7px;
       float: right;
-      font-size:small;
+      text-align: center;
+      font-size:medium;
       padding-left: 4px;
       background: rgb(35,195,228);
       background: linear-gradient(45deg, rgba(35,195,228,0.5) 25%, rgba(255,184,32,0.5) 75%);
@@ -56,19 +56,21 @@
     .back p{
       opacity: 0%;
     }
-    form {
+    h1{
       font-weight: 900;
       text-shadow: 1px 1px 2px rgba(255, 0, 0, 0.342), 0 0 0.5em rgba(0, 0, 255, 0.329), 0 0 0.1em rgba(0, 0, 255, 0.384);
     }
-    form b{
+    b{
       font-weight: 900;
       text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
     }
     .scores{
       text-align: center;
-      font-size: x-large;
+      font-size: x-large;  
+      text-shadow: 1px 1px 2px rgba(255, 0, 0, 0.342), 0 0 0.5em rgba(0, 0, 255, 0.329), 0 0 0.1em rgba(0, 0, 255, 0.384);
     }
   </style>
+  
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,7 +80,6 @@
 <body>
   <header>
     <h1>Welcome back weary traveller, what do you mean you dont remember being here before? Maybe memory games aren't your thing...</h1>
-    <form>
       If this is to easy to your liking, feel free to up the difficulty level.
       Every level adds an <b>extra suit </b> (13 pairs, up to 9suits!)
       Levels 10 to 18 do the same but <b>THREE OF A KIND!</b>
@@ -115,7 +116,7 @@
       <button class="difficultyswitch"> 26</button>
       <button class="difficultyswitch"> 27</button>
       <button class="difficultyswitch"> 28</button>
-      <button class="cheat"> cheatmode</button>
+      <a class="cheat"> cheatmode</a>
       <p class="scores">Current score: </p>
   </header>
   <main>
