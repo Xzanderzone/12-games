@@ -5,6 +5,7 @@ let card1=false,card2=false,card3=false,card4=false;
 let difficulty=1;
 let pair=0,attempts=0;
 let totalpairs=0;
+let opacity=0;
 let main=document.body.querySelector("main");
 let difficultyswitch=document.body.querySelectorAll(".difficultyswitch");
 difficultyswitch.forEach(element => {
@@ -21,6 +22,17 @@ difficultyswitch.forEach(element => {
     Start();
     });
 });
+let cheater=document.body.querySelector(".cheat");
+  cheater.addEventListener("click",(e)=>{
+    e.preventDefault();  
+    if(opacity==0)opacity=0.4;
+    else opacity=0;
+    let cards=document.querySelectorAll(".back");
+    cards.forEach(card => {
+      card.querySelector("p").style.opacity=opacity;
+      console.log(card.querySelector("p").style.opacity)
+    });
+    });
 
 Start();
 
@@ -37,6 +49,7 @@ function Start(){
     let card=document.createElement("button");
     let cardtitle=document.createElement("p");
     card.classList.add("back");
+    // card.style.opacity=opacity;
     card.style.color=deck[i].color;
     cardtitle.textContent=deck[i].Value+deck[i].Suit;
     card.addEventListener("click",function(e){
