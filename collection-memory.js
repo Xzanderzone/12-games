@@ -11,11 +11,13 @@ export function SetDifficulty(difficulty)
 	let deck = [];
 	let pairs;
 	if(difficultyLevel<=9)pairs=2;
-	else if(difficultyLevel>9)pairs=3;
+	else if(difficultyLevel<20)pairs=3;
+	else if(difficultyLevel>=20)pairs=4;
 	for (let duplicate=0;duplicate<pairs;duplicate++)
 	{
 		let maxsuits=suits.length;
-		if (difficultyLevel>maxsuits)difficultyLevel-=maxsuits;
+		if (difficultyLevel>9 && difficultyLevel<20)difficultyLevel-=maxsuits;
+		else if (difficultyLevel>=20)difficultyLevel-=19;
 		for(let i = 0; i < suits.length && i<difficultyLevel; i++)
 		{
 			for(let x = 0; x < values.length; x++)
