@@ -10,7 +10,7 @@ let main=document.body.querySelector("main");
 let difficultyswitch=document.body.querySelectorAll(".difficultyswitch");
 difficultyswitch.forEach(element => {
   element.addEventListener("click",(e)=>{
-    e.preventDefault();  
+    // e.preventDefault();  
     difficulty=parseInt(e.target.textContent);
     SetDifficulty(difficulty);
     card1=false;
@@ -24,13 +24,11 @@ difficultyswitch.forEach(element => {
 });
 let cheater=document.body.querySelector(".cheat");
   cheater.addEventListener("click",(e)=>{
-    e.preventDefault();  
     if(opacity==0)opacity=0.4;
     else opacity=0;
-    let cards=document.querySelectorAll(".back");
+    let cards=document.querySelectorAll(".card");
     cards.forEach(card => {
       card.querySelector("p").style.opacity=opacity;
-      console.log(card.querySelector("p").style.opacity)
     });
     });
 
@@ -48,6 +46,7 @@ function Start(){
   for(let i=0;i<deck.length;i++){
     let card=document.createElement("button");
     let cardtitle=document.createElement("p");
+    card.classList.add("card");
     card.classList.add("back");
     // card.style.opacity=opacity;
     card.style.color=deck[i].color;
@@ -123,7 +122,7 @@ function Start(){
       }
       console.log(pair,attempts);
       scoreboard.textContent="Current score: Pairs found"+pair+"/"+totalpairs+ "attempts made: "+(attempts+pair);
-      main.prepend(scoreboard);
+      //main.prepend(scoreboard);
     })
     card.appendChild(cardtitle);
     main.appendChild(card);
