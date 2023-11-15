@@ -10,10 +10,15 @@
     *{
       padding:0;
       margin:0;
+      box-sizing:border-box;
     }
     .floory{
+      display: block;
+      position: relative;
+    }
+    .floorx{
       display: flex;
-      box-sizing:content-box;
+      position: relative;
     }
   </style>
 <head>
@@ -42,6 +47,10 @@
     <tr>
       <td>tile column count</td>
       <td><label for="colcount"><input type="number" placeholder="10" name="colcount" id="colcount"></label></td>
+    </tr>
+    <tr>
+      <td>Apply changes</td>
+      <td><label for="confirm"><button id="confirm">Resize Me! </button></label></td>
     </tr>
   </table>
 </div>
