@@ -8,7 +8,12 @@
       background-color: blue;
     }
     *{
-      max-height: 100vh;
+      padding:0;
+      margin:0;
+    }
+    .floory{
+      display: flex;
+      box-sizing:content-box;
     }
   </style>
 <head>
@@ -19,7 +24,27 @@
 </head>
 <body>
   <header>
-
+<div class="settings">
+  <table>
+    <th>settings</th>
+    <tr>
+      <td>board total width</td>
+      <td><label for="total width"><input type="number" placeholder="500" name="totalwidth" id="total width"></label></td>
+    </tr>
+    <tr>
+      <td>board total height</td>
+      <td><label for="total height"><input type="number" placeholder="500" name="totalheight" id="total height"></label></td>
+    </tr>
+    <tr>
+      <td>tile row count</td>
+      <td><label for="rowcount"><input type="number" placeholder="10" name="rowcount" id="rowcount"></label></td>
+    </tr>
+    <tr>
+      <td>tile column count</td>
+      <td><label for="colcount"><input type="number" placeholder="10" name="colcount" id="colcount"></label></td>
+    </tr>
+  </table>
+</div>
   </header>
   <main>
 

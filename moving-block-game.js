@@ -2,7 +2,7 @@ document.addEventListener("keydown",move);
 let boardsizeright=500,boardsizedown=500;//total size
 let boardright=10,boarddown=10;//total tile count
 let tilesizeright=boardsizeright/boardright,tilesizedown=boardsizedown/boarddown;//tile size
-let playerright=5,playerdown=5;//relative 0 - boar xy
+let playerright=1,playerdown=1;//relative 0 - boar xy
 let playerrequest={right:0,down:0};// 1 0 -1
 let playerlocation={right:0,down:0};// absolute positoin 0 - boardsize
 
@@ -15,23 +15,28 @@ main.appendChild(player);
 DrawBoard();
 
 function DrawBoard(){
+  let floory=document.createElement("div");
   for(i=0;i<boarddown;i++)
   {
+    let boardx=document.createElement("div");
+    floory.classList.add("floory");
     for(j=0;j<boardright;j++)
     {
-      board.appendChild(DrawTile("floor"));
+      boardx.appendChild(DrawTile("floorx"));
     }
+    floory.appendChild(boardx);
   }
-  main.appendChild(board);
+  main.appendChild(floory);
 }
 
 function DrawTile(type){
-  if(type==="floor"){
+  if(type==="floorx"){
     let floortile=document.createElement("div");
     floortile.classList.add(type);
     floortile.style.width=tilesizeright+"px";
     floortile.style.height=tilesizedown+"px";
     floortile.style.backgroundColor="gray";//change to a floor file?
+    floortile.style.border=".5px solid black";
     return floortile;
   }
 }

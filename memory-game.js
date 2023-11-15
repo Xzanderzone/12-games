@@ -121,7 +121,7 @@ function Start(){
         else if(difficulty>=20)setTimeout(hideCards,1000);
       }
       console.log(pair,attempts);
-      scoreboard.textContent="Current score: Pairs found"+pair+"/"+totalpairs+ "attempts made: "+(attempts+pair);
+      scoreboard.textContent="Current score: Pairs found "+pair+"/"+totalpairs+ " attempts made: "+(attempts+pair);
       //main.prepend(scoreboard);
     })
     card.appendChild(cardtitle);
